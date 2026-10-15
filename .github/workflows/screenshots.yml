@@ -1,0 +1,38 @@
+name: Captures de l'interface (démo)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/screenshots.yml'
+      - 'tools/capture-screenshots.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  screenshots:
+    if: github.repository == 'Konex-Boom/BD-extractor'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Installer le navigateur automatisé
+        run: npm install --no-save --package-lock=false playwright@1.56.1
+      - name: Capturer l'interface V2 avec les images de démonstration
+        run: node tools/capture-screenshots.mjs
+      - name: Enregistrer les captures dans docs/screenshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots/studio.png docs/screenshots/popup.png
+          if git diff --cached --quiet; then
+            echo "Captures inchangées."
+          else
+            git commit -m "docs: add real demo UI screenshots"
+            git push
+          fi
