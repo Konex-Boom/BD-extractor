@@ -15,6 +15,20 @@
 ![Aperçu illustratif de l'interface de la V2](docs/interface-preview.svg)
 *Illustration de l'interface du studio (données de démonstration, et non capture d'un site tiers).*
 
+### Captures d'écran de la V2 (démo locale)
+
+Les captures ci-dessous ont été générées automatiquement à partir des **vrais fichiers HTML/CSS** de l'extension, avec les images de démonstration incluses dans ce dépôt. Elles ne représentent pas un site tiers.
+
+**Studio d'exportation :**
+
+![Capture du studio d'exportation BD Extractor V2](docs/screenshots/studio.png)
+
+**Popup de l'extension :**
+
+<img src="docs/screenshots/popup.png" alt="Capture de la fenêtre popup de BD Extractor V2" width="360">
+
+Les captures peuvent être régénérées via [le workflow dédié](https://github.com/Konex-Boom/BD-extractor/actions/workflows/screenshots.yml).
+
 ### En bref / In short
 
 **FR :** BD Extractor détecte les images accessibles dans un lecteur de bande dessinée, permet de les prévisualiser et sélectionner, signale les doublons et numéros manquants, puis génère localement une archive `.cbz`.
