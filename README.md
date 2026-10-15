@@ -1,10 +1,41 @@
-# BD vers CBZ 2.0 — Chrome & Edge (Manifest V3)
+<p align="center"><img src="docs/logo.svg" alt="Logo BD Extractor" width="112"></p>
+
+<h1 align="center">BD Extractor · v2.0.0</h1>
+<p align="center">Extension Chrome / Edge (Manifest V3) pour préparer et exporter en CBZ les planches auxquelles vous avez légitimement accès.</p>
+<p align="center">
+  <a href="https://github.com/Konex-Boom/BD-extractor/actions/workflows/ci.yml"><img src="https://github.com/Konex-Boom/BD-extractor/actions/workflows/ci.yml/badge.svg" alt="Tests GitHub Actions"></a>
+  <a href="https://github.com/Konex-Boom/BD-extractor/releases/latest"><img src="https://img.shields.io/github/v/release/Konex-Boom/BD-extractor?label=version" alt="Dernière release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licence-MIT-green" alt="Licence MIT"></a>
+  <img src="https://img.shields.io/badge/Manifest-V3-blue" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/Chrome%20%2F%20Edge-compatible-4285F4" alt="Chrome et Edge">
+</p>
+
+<p align="center"><a href="https://github.com/Konex-Boom/BD-extractor/releases/latest"><strong>⬇️ Télécharger la dernière version</strong></a> · <a href="https://github.com/Konex-Boom/BD-extractor/actions">Tests automatiques</a> · <a href="LICENSE">Licence</a></p>
+
+![Aperçu illustratif de l'interface de la V2](docs/interface-preview.svg)
+*Illustration de l'interface du studio (données de démonstration, et non capture d'un site tiers).*
+
+### En bref / In short
+
+**FR :** BD Extractor détecte les images accessibles dans un lecteur de bande dessinée, permet de les prévisualiser et sélectionner, signale les doublons et numéros manquants, puis génère localement une archive `.cbz`.
+
+**EN:** BD Extractor is a Chrome/Edge Manifest V3 extension that previews and selects accessible comic pages, reports duplicates and numbering gaps, and exports a local `.cbz` archive. It supports progress tracking, cancellation, retries and automatic scrolling.
+
+**Développeur / Maintainer :** [Konex-Boom](https://github.com/Konex-Boom) · **Projet BOOMTECH**.
+
+### Télécharger / Download
+
+La dernière archive prête à installer se trouve dans les **[GitHub Releases](https://github.com/Konex-Boom/BD-extractor/releases/latest)**. Après extraction, sélectionner le dossier contenant `manifest.json` dans le mode développeur de Chrome ou Edge. Les sources, tests et la démo restent disponibles dans ce dépôt.
+
+---
+
+## Présentation et documentation
 
 Extension pour prévisualiser, sélectionner et exporter en `.cbz` les **images accessibles** d'un chapitre, sans envoyer le contenu à un serveur externe. Compatible avec les lecteurs HTML exposant des fichiers JPEG, PNG, WebP, GIF ou AVIF. JSZip 3.10.1 est embarqué **localement**.
 
 ## Installer
 
-1. Décompresser `BD-vers-CBZ-v2.zip` dans un dossier durable.
+1. Décompresser `BD-extractor-v2.0.0.zip` dans un dossier durable.
 2. Ouvrir `chrome://extensions` (Chrome) ou `edge://extensions` (Edge).
 3. Activer **Mode développeur**.
 4. Cliquer sur **Charger l'extension non empaquetée**.

@@ -1,0 +1,28 @@
+name: Tests et validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Node.js 22 · 16 tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vérifier la syntaxe et exécuter les tests
+        run: npm run check
+      - name: Contrôler le manifeste de l'extension
+        run: |
+          node -e "const fs=require('node:fs'); const m=JSON.parse(fs.readFileSync('manifest.json')); if(m.manifest_version!==3||m.version!=='2.0.0') process.exit(1); console.log('Manifest V3 OK : '+m.version)"

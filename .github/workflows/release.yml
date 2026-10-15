@@ -1,0 +1,67 @@
+name: Release v2.0.0 (CBZ Extractor)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release.yml'
+      - 'manifest.json'
+      - 'popup.html'
+      - 'popup.js'
+      - 'workspace.html'
+      - 'workspace.js'
+      - 'core.js'
+      - 'scanner.js'
+      - 'style.css'
+      - 'libs/**'
+      - 'assets/**'
+      - 'LICENSE'
+      - 'RELEASE_NOTES.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.repository == 'Konex-Boom/BD-extractor' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Tester avant publication
+        run: npm run check
+      - name: Empaqueter l'extension installable
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./manifest.json').version")"
+          test "$VERSION" = "2.0.0"
+          DEST="dist/BD-extractor-v${VERSION}"
+          mkdir -p "$DEST"
+          cp manifest.json popup.html popup.js workspace.html workspace.js core.js scanner.js style.css LICENSE README.md "$DEST/"
+          cp -R libs "$DEST/"
+          test -d assets && cp -R assets "$DEST/" || true
+          (cd dist && zip -qr "BD-extractor-v${VERSION}.zip" "BD-extractor-v${VERSION}")
+          unzip -l "dist/BD-extractor-v${VERSION}.zip"
+      - name: Publier une seule fois la release et son ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v2.0.0"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG déjà existante ; aucun doublon."
+            exit 0
+          fi
+          gh release create "$TAG" "dist/BD-extractor-v2.0.0.zip" \
+            --target "$GITHUB_SHA" \
+            --title "BD Extractor v2.0.0" \
+            --notes-file RELEASE_NOTES.md \
+            --latest
