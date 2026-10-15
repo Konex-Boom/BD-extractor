@@ -14,3 +14,6 @@ Mise à jour de l'interface d'analyse des planches.
 Télécharger l'archive `BD-extractor-v2.0.1.zip` dans les assets de la release. La décompresser puis charger le dossier contenant `manifest.json` depuis `chrome://extensions` ou `edge://extensions` avec le mode développeur. Pour une installation existante, remplacer le dossier puis cliquer sur **Actualiser** dans la page des extensions.
 
 Cette extension n'accède qu'aux images accessibles normalement dans votre navigateur et pour lesquelles vous disposez de l'autorisation de sauvegarde.
+
+## Qualité
+19 tests automatisés réussis sur GitHub Actions, dont 3 tests dédiés au cycle de vie de l'indicateur de chargement.
