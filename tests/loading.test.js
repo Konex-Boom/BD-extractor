@@ -39,6 +39,7 @@ function createWorkspace() {
     chrome, CBZCore: core, location: { search: "?tab=42" },
     document: { getElementById: element, createDocumentFragment() { return element("fragment"); } },
     URL, crypto: { randomUUID() { return "scan-42"; } },
+    scanReader() {}, abortReaderScan() {},
     setInterval, clearInterval, Date, console
   };
   vm.runInNewContext(script, ctx);
