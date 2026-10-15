@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BD vers CBZ — Studio d'export</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="workspace-body">
+  <main class="layout">
+    <header class="topbar">
+      <div class="brand"><div class="app-mark large">▤</div><div><h1>BD vers CBZ <span class="version">2.0</span></h1><p>Studio d'exportation de chapitre</p></div></div>
+      <div class="top-actions"><span class="chip" id="domain">Aucun site</span><button class="btn btn-secondary" id="rescan" type="button">↻ Réanalyser</button></div>
+    </header>
+
+    <section class="hero" aria-label="Informations du chapitre">
+      <div class="hero-intro"><span class="eyebrow">CHAPITRE DÉTECTÉ</span><h2 id="chapter-title">Analyse du lecteur…</h2><p id="source-url">Recherche des images accessibles dans l'onglet d'origine.</p></div>
+      <div class="hero-stats">
+        <div><strong id="total-count">0</strong><span>détectées</span></div>
+        <div><strong id="selected-count">0</strong><span>sélectionnées</span></div>
+        <div><strong id="duplicates-count">0</strong><span>doublons écartés</span></div>
+      </div>
+    </section>
+
+    <section class="panel" id="scan-panel">
+      <div class="panel-header"><div><h3>Analyse du lecteur</h3><p>Le défilement automatique charge les planches différées, puis rétablit la position de lecture.</p></div><label class="switch-wrap"><input type="checkbox" id="autoscroll" checked><span>Défilement automatique</span></label></div>
+      <div class="line"><span class="live-dot" id="scan-dot"></span><span id="scan-status" role="status" aria-live="polite">Prêt à analyser.</span><button class="btn btn-secondary btn-small" id="stop-scan" hidden type="button">Arrêter l'analyse</button></div>
+    </section>
+
+    <section class="notice" id="notice" hidden role="status"></section>
+
+    <section class="panel gallery-panel">
+      <div class="panel-header"><div><h3>Prévisualisation des planches</h3><p id="gallery-hint">Sélectionne les planches que tu souhaites conserver dans le CBZ.</p></div><div class="toolbar"><button class="btn btn-secondary btn-small" id="all" type="button">Tout sélectionner</button><button class="btn btn-secondary btn-small" id="none" type="button">Tout retirer</button></div></div>
+      <div id="empty" class="empty"><div class="empty-icon">▧</div><strong>Les images apparaîtront ici.</strong><p>L'analyse du lecteur doit d'abord se terminer.</p></div>
+      <div class="gallery" id="gallery" aria-label="Liste des images détectées"></div>
+    </section>
+
+    <section class="panel export-panel">
+      <div class="panel-header"><div><h3>Exporter le chapitre</h3><p>Les images sont conservées dans leur format d'origine.</p></div><div class="step-label" id="phase">EN ATTENTE</div></div>
+      <label class="field-label" for="filename">Nom du fichier .cbz</label>
+      <div class="file-field"><input id="filename" type="text" spellcheck="false" maxlength="110" placeholder="Titre - Chapitre 001"><span>.cbz</span></div>
+      <div class="progress-heading"><strong id="progress-label">Aucun téléchargement en cours.</strong><strong id="percent">0 %</strong></div>
+      <progress id="progress" max="100" value="0">0%</progress>
+      <div class="progress-stats"><span id="progress-count">0 / 0 pages</span><span id="progress-size">0 Mo transféré</span><span id="progress-errors">0 erreur</span></div>
+      <p id="export-status" class="export-status" role="status" aria-live="polite">Prêt.</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="export" type="button" disabled>↓ Télécharger en .cbz</button>
+        <button class="btn btn-danger" id="cancel" type="button" hidden>Annuler</button>
+        <button class="btn btn-secondary" id="retry" type="button" hidden>↻ Réessayer les erreurs</button>
+        <button class="btn btn-secondary" id="incomplete" type="button" hidden>Exporter malgré les erreurs</button>
+      </div>
+      <div id="error-panel" class="error-panel" hidden><strong>Pages non récupérées</strong><ul id="error-list"></ul></div>
+    </section>
+    <footer>Les fichiers sont téléchargés et archivés localement. Aucune image n'est envoyée à notre serveur. Utilise uniquement les contenus que tu as le droit de sauvegarder.</footer>
+  </main>
+  <script src="libs/jszip.min.js"></script>
+  <script src="core.js"></script>
+  <script src="scanner.js"></script>
+  <script src="workspace.js"></script>
+</body>
+</html>

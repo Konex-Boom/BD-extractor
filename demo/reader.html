@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Démo BD - Chapitre 005</title>
+<style>
+body { background:#0d1526;color:#f2f4fc;font-family:system-ui;margin:0;padding:32px;text-align:center }
+main {max-width:800px;margin:auto} h1{margin:10px}p{color:#bac8e2}
+#reader {margin:auto;max-width:720px} #reader img{display:block;width:100%;height:auto;margin:20px auto}
+.slot {height:1160px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #34415a}
+</style></head><body><main><h1>Chapitre 005 — Démonstration</h1><p>Images libres créées pour tester l'extension. La page 003 est volontairement absente, et la page 002 est ajoutée deux fois.</p>
+<div id="reader"><div class="slot"><img src="_converted/chapitre-test/001.webp" alt="Page 001"></div>
+<div id="later-2" class="slot">Chargement de la page 002 au défilement…</div>
+<div id="later-4" class="slot">Chargement de la page 004 au défilement…</div></div></main>
+<script>
+const origin = location.origin;
+const observer = new IntersectionObserver((entries) => {
+  entries.filter(entry => entry.isIntersecting).forEach(entry => {
+    const slot = entry.target;
+    if (slot.id === 'later-2') {
+      slot.replaceChildren();
+      for (let i=0;i<2;i++) {
+        const img = document.createElement('img');
+        img.src = '_converted/chapitre-test/002.webp';
+        img.alt = 'Page 002';
+        slot.append(img);
+      }
+    } else if (slot.id === 'later-4') {
+      const img = document.createElement('img');
+      img.src = '_converted/chapitre-test/004.webp';
+      img.alt = 'Page 004';
+      slot.replaceChildren(img);
+    }
+    observer.unobserve(slot);
+  });
+},{rootMargin:'100px 0px'});
+observer.observe(document.getElementById('later-2'));
+observer.observe(document.getElementById('later-4'));
+</script></body></html>
