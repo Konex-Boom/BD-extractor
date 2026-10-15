@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BD vers CBZ",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Prévisualisez, sélectionnez et exportez les planches accessibles d'un chapitre en CBZ.",
   "minimum_chrome_version": "102",
   "action": {

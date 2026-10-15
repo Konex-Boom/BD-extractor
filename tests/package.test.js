@@ -8,7 +8,7 @@ const base = path.resolve(__dirname, "..");
 test("manifeste V3 chargé sans dépendance ni code distant", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(base, "manifest.json"), "utf8"));
   assert.equal(manifest.manifest_version, 3);
-  assert.equal(manifest.version, "2.0.0");
+  assert.equal(manifest.version, JSON.parse(fs.readFileSync(path.join(base, "package.json"), "utf8")).version);
   for (const name of ["activeTab", "scripting", "downloads"]) assert.ok(manifest.permissions.includes(name));
   assert.equal(manifest.action.default_popup, "popup.html");
   assert.ok(!manifest.background?.service_worker);
@@ -21,6 +21,13 @@ test("fichiers HTML, scripts locaux et contrôles d'interface présents", () => 
   for (const id of ["gallery", "filename", "export", "retry", "cancel", "stop-scan", "autoscroll", "notice", "progress", "error-panel"]) {
     assert.ok(workspace.includes(`id="${id}"`), `Contrôle manquant : ${id}`);
   }
+  for (const id of ["scan-loading", "scan-loading-title", "scan-loading-hint", "scan-loading-time", "gallery-loading", "empty-message"]) {
+    assert.ok(workspace.includes(`id="${id}"`), `Indicateur de chargement manquant : ${id}`);
+  }
+  const css = fs.readFileSync(path.join(base, "style.css"), "utf8");
+  assert.match(css, /@keyframes scan-spin/);
+  assert.match(css, /@keyframes scan-slide/);
+  assert.match(css, /prefers-reduced-motion/);
   for (const script of ["core.js", "scanner.js", "workspace.js", "libs/jszip.min.js"]) {
     assert.ok(workspace.includes(`src="${script}"`));
     assert.ok(fs.existsSync(path.join(base, script)));

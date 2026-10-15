@@ -9,7 +9,7 @@
 <body class="workspace-body">
   <main class="layout">
     <header class="topbar">
-      <div class="brand"><div class="app-mark large">▤</div><div><h1>BD vers CBZ <span class="version">2.0</span></h1><p>Studio d'exportation de chapitre</p></div></div>
+      <div class="brand"><div class="app-mark large">▤</div><div><h1>BD vers CBZ <span class="version">2.0.1</span></h1><p>Studio d'exportation de chapitre</p></div></div>
       <div class="top-actions"><span class="chip" id="domain">Aucun site</span><button class="btn btn-secondary" id="rescan" type="button">↻ Réanalyser</button></div>
     </header>
 
@@ -24,6 +24,18 @@
 
     <section class="panel" id="scan-panel">
       <div class="panel-header"><div><h3>Analyse du lecteur</h3><p>Le défilement automatique charge les planches différées, puis rétablit la position de lecture.</p></div><label class="switch-wrap"><input type="checkbox" id="autoscroll" checked><span>Défilement automatique</span></label></div>
+      <div class="scan-loading" id="scan-loading" hidden aria-label="Chargement des planches en cours">
+        <div class="scan-loading-heading">
+          <span class="scan-spinner" aria-hidden="true"></span>
+          <div class="scan-loading-copy">
+            <strong id="scan-loading-title">Recherche des planches…</strong>
+            <span id="scan-loading-hint">Chargement des images différées dans le lecteur.</span>
+          </div>
+          <span class="scan-loading-time" id="scan-loading-time" aria-label="Temps écoulé">0 s</span>
+        </div>
+        <div class="scan-loading-track" aria-hidden="true"><span class="scan-loading-bar"></span></div>
+        <p class="scan-loading-note">Le nombre exact de pages sera connu à la fin de l'analyse. Tu peux l'arrêter à tout moment.</p>
+      </div>
       <div class="line"><span class="live-dot" id="scan-dot"></span><span id="scan-status" role="status" aria-live="polite">Prêt à analyser.</span><button class="btn btn-secondary btn-small" id="stop-scan" hidden type="button">Arrêter l'analyse</button></div>
     </section>
 
@@ -31,7 +43,15 @@
 
     <section class="panel gallery-panel">
       <div class="panel-header"><div><h3>Prévisualisation des planches</h3><p id="gallery-hint">Sélectionne les planches que tu souhaites conserver dans le CBZ.</p></div><div class="toolbar"><button class="btn btn-secondary btn-small" id="all" type="button">Tout sélectionner</button><button class="btn btn-secondary btn-small" id="none" type="button">Tout retirer</button></div></div>
-      <div id="empty" class="empty"><div class="empty-icon">▧</div><strong>Les images apparaîtront ici.</strong><p>L'analyse du lecteur doit d'abord se terminer.</p></div>
+      <div id="empty" class="empty">
+        <div class="gallery-loading" id="gallery-loading" hidden aria-hidden="true">
+          <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-caption"></div></div>
+          <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-caption"></div></div>
+          <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-caption"></div></div>
+          <div class="skeleton-card"><div class="skeleton-thumb"></div><div class="skeleton-caption"></div></div>
+        </div>
+        <div id="empty-message"><div class="empty-icon">▧</div><strong>Les images apparaîtront ici.</strong><p>Ouvre le lecteur et relance l'analyse pour rechercher les planches.</p></div>
+      </div>
       <div class="gallery" id="gallery" aria-label="Liste des images détectées"></div>
     </section>
 

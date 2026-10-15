@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   tests:
-    name: Node.js 22 · 16 tests
+    name: Node.js 22 · vérifications
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -25,4 +25,4 @@ jobs:
         run: npm run check
       - name: Contrôler le manifeste de l'extension
         run: |
-          node -e "const fs=require('node:fs'); const m=JSON.parse(fs.readFileSync('manifest.json')); if(m.manifest_version!==3||m.version!=='2.0.0') process.exit(1); console.log('Manifest V3 OK : '+m.version)"
+          node -e "const fs=require('node:fs'); const m=JSON.parse(fs.readFileSync('manifest.json')); if(m.manifest_version!==3||m.version!==JSON.parse(fs.readFileSync('package.json')).version) process.exit(1); console.log('Manifest V3 OK : '+m.version)"

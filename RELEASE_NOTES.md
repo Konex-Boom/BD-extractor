@@ -1,21 +1,16 @@
-# BD Extractor 2.0.0
+# BD Extractor v2.0.1
 
-Première release officielle de l'extension Chrome/Edge **Manifest V3**, par **BOOMTECH / Konex-Boom**.
+Mise à jour de l'interface d'analyse des planches.
 
-## Nouveautés
-- Galerie de prévisualisation avec sélection individuelle et globale.
-- Défilement automatique du lecteur, avec restauration de la position.
-- Détection des doublons et diagnostic de numéros manquants.
-- Nom du fichier automatiquement proposé, personnalisable.
-- Progression détaillée, annulation et reprise.
-- Trois tentatives réseau au maximum et réessai ciblé des pages en erreur.
-- Export direct en .cbz via JSZip, sans conversion dégradante des images.
-- Tests automatisés exécutés avec Node.js 22 et GitHub Actions.
+- Spinner de chargement et barre animée indéterminée pendant la recherche.
+- Cartes fantômes (skeletons) dans la galerie avant la première détection.
+- Compteur du temps écoulé et détails de la progression (URL repérées, étapes).
+- Arrêt de l'analyse conservé, avec restauration de la position de lecture.
+- Disparition garantie de l'animation après succès, erreur ou annulation.
+- Animations respectueuses de `prefers-reduced-motion`.
+- Fonctions d'export CBZ, de sélection, de tri, de reprise et de compression inchangées.
 
 ## Installation
-1. Télécharger **BD-extractor-v2.0.0.zip** dans les assets de cette release.
-2. Décompresser le ZIP.
-3. Ouvrir `chrome://extensions` ou `edge://extensions`.
-4. Activer le mode développeur, puis charger **le dossier extrait** (celui qui contient `manifest.json`).
+Télécharger l'archive `BD-extractor-v2.0.1.zip` dans les assets de la release. La décompresser puis charger le dossier contenant `manifest.json` depuis `chrome://extensions` ou `edge://extensions` avec le mode développeur. Pour une installation existante, remplacer le dossier puis cliquer sur **Actualiser** dans la page des extensions.
 
-> Ne chargez pas directement le ZIP comme une extension. Seules les images accessibles, pour lesquelles vous disposez des droits nécessaires, peuvent être exportées.
+Cette extension n'accède qu'aux images accessibles normalement dans votre navigateur et pour lesquelles vous disposez de l'autorisation de sauvegarde.

@@ -1,6 +1,6 @@
 <p align="center"><img src="docs/logo.svg" alt="Logo BD Extractor" width="112"></p>
 
-<h1 align="center">BD Extractor · v2.0.0</h1>
+<h1 align="center">BD Extractor · v2.0.1</h1>
 <p align="center">Extension Chrome / Edge (Manifest V3) pour préparer et exporter en CBZ les planches auxquelles vous avez légitimement accès.</p>
 <p align="center">
   <a href="https://github.com/Konex-Boom/BD-extractor/actions/workflows/ci.yml"><img src="https://github.com/Konex-Boom/BD-extractor/actions/workflows/ci.yml/badge.svg" alt="Tests GitHub Actions"></a>
@@ -28,6 +28,9 @@ Les captures ci-dessous ont été générées automatiquement à partir des **vr
 <img src="docs/screenshots/popup.png" alt="Capture de la fenêtre popup de BD Extractor V2" width="360">
 
 Les captures peuvent être régénérées via [le workflow dédié](https://github.com/Konex-Boom/BD-extractor/actions/workflows/screenshots.yml).
+
+### Nouveauté v2.0.1 : indicateur de chargement
+Pendant l'analyse d'un lecteur, le studio affiche un **spinner**, une **barre animée indéterminée**, des **cartes de prévisualisation temporaires**, le **temps écoulé** et le **nombre d'URL détectées**. Le chargement disparaît automatiquement après une analyse réussie, une erreur ou une interruption. Les animations respectent la préférence d'accessibilité « réduire les animations ».
 
 ### En bref / In short
 

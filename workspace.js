@@ -5,7 +5,8 @@ const $ = (id) => document.getElementById(id);
 const ui = Object.fromEntries([
   "chapter-title", "source-url", "domain", "total-count", "selected-count", "duplicates-count",
   "rescan", "autoscroll", "scan-status", "scan-dot", "stop-scan", "notice",
-  "gallery", "empty", "gallery-hint", "all", "none", "filename", "phase",
+  "scan-loading", "scan-loading-title", "scan-loading-hint", "scan-loading-time", "scan-panel",
+  "gallery", "empty", "empty-message", "gallery-loading", "gallery-hint", "all", "none", "filename", "phase",
   "progress-label", "percent", "progress", "progress-count", "progress-size",
   "progress-errors", "export-status", "export", "cancel", "retry", "incomplete",
   "error-panel", "error-list"
@@ -29,6 +30,14 @@ function progress(percent, message) {
   if (message) setText("progress_label", message);
 }
 function visible(element, show) { element.hidden = !show; }
+function showScanLoading(active) {
+  visible(ui.scan_loading, active);
+  ui.scan_panel.setAttribute("aria-busy", String(active));
+  const skeleton = active && state.pages.length === 0;
+  visible(ui.gallery_loading, skeleton);
+  visible(ui.empty_message, !skeleton);
+  visible(ui.empty, skeleton || state.pages.length === 0);
+}
 function currentSelection() { return state.pages.filter((p) => p.selected); }
 function errorItems() { return currentSelection().filter((p) => p.state === "error"); }
 
@@ -127,6 +136,8 @@ function syncSelection() {
 async function stopScan() {
   if (!state.scanning || !state.scanToken) return;
   setText("scan_status", "Arrêt demandé : restauration de la position de lecture…");
+  setText("scan_loading_title", "Arrêt de l’analyse…");
+  setText("scan_loading_hint", "Restauration de la position de lecture.");
   try {
     await api.scripting.executeScript({ target: { tabId: state.tabId }, func: abortReaderScan, args: [state.scanToken] });
   } catch { /* L'onglet a pu être fermé ou naviguer ailleurs. */ }
@@ -139,6 +150,14 @@ async function scan() {
   const token = state.scanToken;
   setPhase("scan", "ANALYSE");
   setText("scan_status", "Recherche et chargement progressif des planches…");
+  setText("scan_loading_title", "Recherche des planches…");
+  setText("scan_loading_hint", "Exploration du lecteur et chargement des images différées.");
+  setText("scan_loading_time", "0 s");
+  showScanLoading(true);
+  const startTime = Date.now();
+  const scanTimer = setInterval(() => {
+    setText("scan_loading_time", `${Math.floor((Date.now() - startTime) / 1000)} s`);
+  }, 1000);
   ui.scan_dot.classList.add("pulsing");
   setText("export_status", "Analyse en cours : prépare la sélection des images.");
   controls();
@@ -172,8 +191,10 @@ async function scan() {
     setText("export_status", "Vérifie que l'onglet source est ouvert et accessible, puis réanalyse.");
     setPhase("idle", "ERREUR D'ANALYSE");
   } finally {
+    clearInterval(scanTimer);
     state.scanning = false;
     ui.scan_dot.classList.remove("pulsing");
+    showScanLoading(false);
     controls();
   }
 }
@@ -391,6 +412,8 @@ ui.cancel.addEventListener("click", () => {
 api.runtime.onMessage.addListener((message) => {
   if (message?.type === "BDCBZ_SCAN" && state.scanning && message.token === state.scanToken) {
     setText("scan_status", `${message.count} URL(s) repérée(s) · étape ${message.steps} du défilement…`);
+    setText("scan_loading_title", `${message.count} lien(s) d'image repéré(s)…`);
+    setText("scan_loading_hint", `Défilement en cours · étape ${message.steps}. Le total sera confirmé après analyse.`);
   }
 });
 
